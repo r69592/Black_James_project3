@@ -208,10 +208,11 @@ window.addEventListener("DOMContentLoaded", function(){
     
 // My array for dropdown menu.
     var myTypeArray = ["--Choose A Location--", "laundry", "kitchen", "bathroom", "living room", "beddroom", "yard"],
-        difficultyValue
-        ;
+        difficultyValue,
+        errMsg = ge("errors");
+    ;
     makeField();
-    errMsg = ge("errors");
+ 
     
 // Set link & Submit.    
     var showStorage = ge("displayData");
