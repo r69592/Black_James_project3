@@ -113,18 +113,18 @@ window.addEventListener("DOMContentLoaded", function(){
 
     // Validate function.
     function validate (e) {
-        var getChore     = ge("chore");
+        var getSelect      = ge("select");
         
 
         errorMsg.innerHTML = "";
-        getChore.style.border = "1px solid black";
+        getSelect.style.border = "1px solid black";
         
 
         //get error messages
         var messageAry = [];
-        if (getChore.value === "--Choose A Location")
+        if (getSelect.value === "--Choose A Location")
             var choreError = "Please choose a chore location.";
-            getChore.style.border = "1px solid red";
+            getSelect.style.border = "1px solid red";
             messageAry.push(choreError);
     }
         
