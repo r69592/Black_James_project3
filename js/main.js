@@ -5,12 +5,33 @@ VFW : 1305
 Project 3
 
 */
-window.addEventListener("DOMContentLoaded", function(){
+window.addEventListener("DOMContentLoaded", function() {
    
 // My get id function.
     function ge(x) {
          var elementId = document.getElementById(x);
          return elementId;
+    }
+
+    // Toggle on/off function.        
+    function toggleControls(n) {
+        switch(n) {
+            case "on":
+                ge("choreForm").style.display = "none";
+                ge("clearStorage").style.display = "inline";
+                ge("displayData").style.display = "none";
+                ge("addNewChore").style.display = "inline";
+                break;
+            case "off":
+                ge("choreForm").style.display = "block";
+                ge("clearStorage").style.display = "inline";
+                ge("displayData").style.display = "inline";
+                ge("addNewChore").style.display = "none";
+                ge("items").style.display = "none";
+                break;
+            default:
+            return false;
+        };
     }
          
 // Make Select Field With js.
@@ -122,13 +143,13 @@ window.addEventListener("DOMContentLoaded", function(){
 
         //get error messages
         var messageAry = [];
-        if (getSelect.value === "--Choose A Location")
+        if (getSelect.value === "--Choose A Location--"){
             var choreError = "Please choose a chore location.";
             getSelect.style.border = "1px solid red";
             messageAry.push(choreError);
     }
         
-
+}
         if (messageAry.length >= 1) {
             for (var i=0, j=messageAry.length; i < j; i++){
                 var txt = document.createElement("li");
@@ -136,36 +157,17 @@ window.addEventListener("DOMContentLoaded", function(){
                 errMsg.appendChild(txt);
             }
             e.preventDefault();
-        return false;
+            return false;
         }else{
             saveData();
         }
         
 
-// Toggle on/off function.        
-    function toggleControls(n) {
-        switch(n) {
-            case "on":
-                ge("choreForm").style.display = "none";
-                ge("clearStorage").style.display = "inline";
-                ge("displayData").style.display = "none";
-                ge("addNewChore").style.display = "inline";
-                break;
-            case "off":
-                ge("choreForm").style.display = "block";
-                ge("clearStorage").style.display = "inline";
-                ge("displayData").style.display = "inline";
-                ge("addNewChore").style.display = "none";
-                ge("items").style.display = "none";
-                break;
-            default:
-            return false;
-        }
-    }
+
 
 // Get radio answer function.         
         function getSelectedRadio() {
-            var radios = document.forms[0].difficulty
+            var radios = document.forms[0].difficulty;
             for(var i=0; i < radios.length; i++) {
                 if (radios[i].checked) {
                      difficultyValue = radios[i].value;
