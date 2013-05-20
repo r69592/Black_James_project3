@@ -17,6 +17,7 @@ VFW Project: Chore List
     <!-- Link CSS -->
     <Link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
+
 <body>
     <h1>Chore List </h1>
     <!-- This is my link section! -->
@@ -25,6 +26,7 @@ VFW Project: Chore List
         <input type="button" id="addNewChore"  value="Add New Chore"     style="display: none;" onClick="window.location.href='addItem.html'">
     <!-- This starts my form with all buttons,radios,selectBox,etc. -->    
     <form action="#" method="post" id="choreForm">
+
         <fieldset id="fSet">
             <legend>Chore Information</legend>
             <ul id="errors"></ul>
@@ -33,8 +35,10 @@ VFW Project: Chore List
                 <li id="select"><label for="group">*Add Chore Type:</label><br /></li>
             </ul>
         </fieldset>
+
         <fieldset>
             <legend>Questions</legend>
+
             <ul>
                 <li>Difficulty
                     <ul>
@@ -44,6 +48,7 @@ VFW Project: Chore List
                     </ul>
                 </li>
             </ul>
+
             <ul>
                 <li>Importance 
                     <ul>
@@ -51,18 +56,21 @@ VFW Project: Chore List
                     </ul>
                 </li>
             </ul>
+
             <ul>
             <li>Completion Date
                 <ul>
                     <li><input type="date" id="choreDate" /></li>
                 </ul>
             </li>
+
                 <ul>
                     <li><label for="notes">Notes<br /></label><textarea id="notes" value="" placeholder="Please enter all notes here."></textarea></li>
                     <li><input type="hidden" value="true" /></li>
                 </ul>    
             </ul>
         </fieldset>
+        
         <input type="button" id="saveButton" value="Save" />
     </form>
         

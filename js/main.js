@@ -2,7 +2,7 @@
 
 James Black
 VFW : 1305
-Project 2
+Project 3
 
 */
 window.addEventListener("DOMContentLoaded", function(){
@@ -40,6 +40,7 @@ window.addEventListener("DOMContentLoaded", function(){
         ge("items").style.display = "block";
         for (var i=0, len=localStorage.length; i<len; i++) {
             var makeLi = document.createElement("li");
+            var linksLi =document.createElement("li");
             makeList.appendChild(makeLi);
             var key = localStorage.key(i);
             var value = localStorage.getItem(key);
@@ -51,10 +52,96 @@ window.addEventListener("DOMContentLoaded", function(){
                 makeSublist.appendChild(makeSubli);
                 var optSubText = obj[n][0]+" "+obj[n][1];
                 makeSubli.innerHTML = optSubText;
+                makeSublist.appendChild(linksLi);
             }
+            makeItemLinks(localStorage.key(i), linksLi); // edit or delete buttons/links.
         }
     }
-           
+    
+    // Make Item Links.
+    function makeItemLinks(key, linksLi){
+        var editLink  = document.createElement("a");
+        editLink.href = "#";
+        editLink.key  = key;
+        var editText  = "Edit Chore";
+        editLink.addEventListener("click", editItem);
+        editLink.innerHTML = editText;
+        linksLi.appendChild(editLink);
+
+        var breakTag = document.createElement("br");
+        linksLi.appendChild(breakTag);
+
+        var deleteLink  = document.createElement("a");
+        deleteLink.href = "#";
+        deleteLink.key  = key;
+        var deleteText  = "Delete Chore";
+        //deleteLink.addEventListener("click", deleteItem);
+        deleteLink.innerHTML = deleteText;
+        linksLi.appendChild(deleteLink);
+
+    }   
+
+    function editItem (){
+        var value = localStorage.getItem(this.key);
+        var item = JSON.parse(value);
+
+        toggleControls("off");
+
+        ge("chore").value = item.chore[1];
+        ge("area").value  =item.area[1];
+        var radios = document.forms[0].difficulty;
+        for (var i=0; i<radios.length; i++){
+            if (radios[i].value == "Easy" && item.difficulty[1] == "Easy"){
+                radios[i].setAttribute("checked", "checked");
+            }else if (radios[i].value == "Medium" && item.difficulty[1] == "Medium"){
+                radios[i].setAttribute("checked", "checked");
+            }else if (radios[i].value == "Hard" && item.difficulty[1] == "Hard"){
+                radios[i].setAttribute("checked", "checked");
+            }
+        }
+        ge("importance").value = item.importance[1];
+        ge("choreDate").value  = item.choreDate[1];
+        ge("notes").value      = item.notes[1];
+
+        //remove listener.
+        saveButton.removeEventListener("click", saveData);
+        ge("saveButton").value = "Edit Chore";
+        var editSubmit = ge("saveButton");
+        editSubmit.addEventListener("click", validate);
+        editSubmit.key = this.key;
+    }
+
+    // Validate function.
+    function validate (e) {
+        var getChore     = ge("chore");
+        
+
+        errorMsg.innerHTML = "";
+        getChore.style.border = "1px solid black";
+        
+
+        //get error messages
+        var messageAry = [];
+        if (getChore.value === "--Choose A Location")
+            var choreError = "Please choose a chore location.";
+            getChore.style.border = "1px solid red";
+            messageAry.push(choreError);
+    }
+        
+
+        if (messageAry.length >= 1) {
+            for (var i=0, j=messageAry.length; i < j; i++){
+                var txt = document.createElement("li");
+                txt.innerHTML = messageAry[i];
+                errMsg.appendChild(txt);
+            }
+            e.preventDefault();
+        return false;
+        }else{
+            saveData();
+        }
+        
+
 // Toggle on/off function.        
     function toggleControls(n) {
         switch(n) {
@@ -124,6 +211,7 @@ window.addEventListener("DOMContentLoaded", function(){
         difficultyValue
         ;
     makeField();
+    errMsg = ge("errors");
     
 // Set link & Submit.    
     var showStorage = ge("displayData");
@@ -131,7 +219,7 @@ window.addEventListener("DOMContentLoaded", function(){
     var clearStorageLink = ge("clearStorage");
     clearStorageLink.addEventListener("click", clearStorage);
     var saveButton     = ge("saveButton");
-    saveButton.addEventListener("click", saveData);
+    saveButton.addEventListener("click", validate);
 
     
 });
