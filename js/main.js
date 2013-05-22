@@ -7,11 +7,13 @@ Project 3
 */
 window.addEventListener("DOMContentLoaded", function() {
    
-// My get id function.
+    
+    // My get id function.
     function ge(x) {
          var elementId = document.getElementById(x);
          return elementId;
     }
+
 
     // Toggle on/off function.        
     function toggleControls(n) {
@@ -34,7 +36,8 @@ window.addEventListener("DOMContentLoaded", function() {
         };
     }
          
-// Make Select Field With js.
+    
+    // Make Select Field With js.
     function makeField() {
         var formTag = ge("form"), 
             selectLi = ge("select"),
@@ -49,8 +52,9 @@ window.addEventListener("DOMContentLoaded", function() {
         }
         selectLi.appendChild(makeSelect);
     }
-    
-// Show storage.
+   
+
+    // Show storage.
     function showData(){
         toggleControls("on");
         var makeDiv = document.createElement("div");
@@ -79,6 +83,7 @@ window.addEventListener("DOMContentLoaded", function() {
         }
     }
     
+
     // Make Item Links.
     function makeItemLinks(key, linksLi){
         var editLink  = document.createElement("a");
@@ -101,6 +106,7 @@ window.addEventListener("DOMContentLoaded", function() {
         linksLi.appendChild(deleteLink);
 
     }   
+
 
     function editItem (){
         var value = localStorage.getItem(this.key);
@@ -131,25 +137,34 @@ window.addEventListener("DOMContentLoaded", function() {
         editSubmit.addEventListener("click", validate);
         editSubmit.key = this.key;
     }
+ 
 
     // Validate function.
     function validate (e) {
-        var getSelect      = ge("select");
-        
+        var getArea      = ge("area");
+        var getChore     = ge("chore");
 
-        errorMsg.innerHTML = "";
-        getSelect.style.border = "1px solid black";
-        
+        //error reset
+        errMsg.innerHTML = "";
+        getArea.style.border = "1px solid black";
+        getChore.style.border = "1px solid black";
 
         //get error messages
+        // Select validation.
         var messageAry = [];
-        if (getSelect.value === "--Choose A Location--"){
+        if (getArea.value === "--Choose A Location--"){
             var choreError = "Please choose a chore location.";
-            getSelect.style.border = "1px solid red";
+            getArea.style.border = "1px solid red";
             messageAry.push(choreError);
-    }
-        
-}
+        }
+        // Chore Discription validation.
+        if(getChore.value === ""){
+            var getChoreError = "Please enter a chore.";
+            getChore.style.border = "1px solid red";
+            messageAry.push(getChoreError);
+        }
+        console.log(getChore);
+
         if (messageAry.length >= 1) {
             for (var i=0, j=messageAry.length; i < j; i++){
                 var txt = document.createElement("li");
@@ -161,26 +176,25 @@ window.addEventListener("DOMContentLoaded", function() {
         }else{
             saveData();
         }
-        
+    }
 
 
-
-// Get radio answer function.         
-        function getSelectedRadio() {
-            var radios = document.forms[0].difficulty;
-            for(var i=0; i < radios.length; i++) {
-                if (radios[i].checked) {
-                     difficultyValue = radios[i].value;
-               }
+    // Get radio answer function.         
+    function getSelectedRadio() {
+        var radios = document.forms[0].difficulty;
+        for(var i=0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                difficultyValue = radios[i].value;
             }
         }
+    }
         
-// Save data
-        
-        function saveData() {
+    
+    // Save data
+    function saveData() {
         var id              = Math.floor(Math.random()*1000001);
         getSelectedRadio();
-        var item            = {}
+        var item            = {};
             item.chore      = ["Chore", ge("chore").value];
             item.area       = ["Chore Location", ge("area").value];
             item.difficulty = ["difficulty", difficultyValue];
@@ -192,31 +206,28 @@ window.addEventListener("DOMContentLoaded", function() {
     }
 
     
-// Clear storage.
+    // Clear storage.
     var clearStorage = function() {
         if (localStorage.length === 0){
             alert("Storage is empty.");
-    }   else {
+        }else {
             localStorage.clear();
             alert("All chores have been deleted!");
             window.location.reload();
             return false;
+        }
     }
-    }
-    
-   
-         
     
     
-// My array for dropdown menu.
+    // My array for dropdown menu.
     var myTypeArray = ["--Choose A Location--", "laundry", "kitchen", "bathroom", "living room", "beddroom", "yard"],
         difficultyValue,
         errMsg = ge("errors");
     ;
     makeField();
- 
-    
-// Set link & Submit.    
+   
+        
+    // Set link & Submit.    
     var showStorage = ge("displayData");
     showStorage.addEventListener("click", showData);
     var clearStorageLink = ge("clearStorage");
