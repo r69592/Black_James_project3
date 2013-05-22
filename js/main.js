@@ -101,21 +101,23 @@ window.addEventListener("DOMContentLoaded", function() {
         deleteLink.href = "#";
         deleteLink.key  = key;
         var deleteText  = "Delete Chore";
-        //deleteLink.addEventListener("click", deleteItem);
+        deleteLink.addEventListener("click", deleteItem);
         deleteLink.innerHTML = deleteText;
         linksLi.appendChild(deleteLink);
 
     }   
 
-
+    // My edit item link function....
     function editItem (){
         var value = localStorage.getItem(this.key);
-        var item = JSON.parse(value);
+        var item  = JSON.parse(value);
 
         toggleControls("off");
 
+        // Get Elements By Id....
         ge("chore").value = item.chore[1];
         ge("area").value  =item.area[1];
+
         var radios = document.forms[0].difficulty;
         for (var i=0; i<radios.length; i++){
             if (radios[i].value == "Easy" && item.difficulty[1] == "Easy"){
@@ -138,6 +140,16 @@ window.addEventListener("DOMContentLoaded", function() {
         editSubmit.key = this.key;
     }
  
+    function deleteItem () {
+        var ask = confirm("Are you sure you want to delete this chore?");
+        if (ask) {
+            localStorage.removeItem(this.key);
+            alert("Chore was deleted");
+            window.location.reload();
+        }else{
+            alert("Chore was NOT deleted.");
+        }
+    }
 
     // Validate function.
     function validate (e) {
@@ -145,9 +157,9 @@ window.addEventListener("DOMContentLoaded", function() {
         var getChore     = ge("chore");
 
         //error reset
-        errMsg.innerHTML = "";
-        getArea.style.border = "1px solid black";
-        getChore.style.border = "1px solid black";
+        errMsg.innerHTML        = "";
+        getArea.style.border    = "1px solid black";
+        getChore.style.border   = "1px solid black";
 
         //get error messages
         // Select validation.
@@ -174,7 +186,7 @@ window.addEventListener("DOMContentLoaded", function() {
             e.preventDefault();
             return false;
         }else{
-            saveData();
+            saveData(this.key);
         }
     }
 
@@ -191,8 +203,12 @@ window.addEventListener("DOMContentLoaded", function() {
         
     
     // Save data
-    function saveData() {
-        var id              = Math.floor(Math.random()*1000001);
+    function saveData (key) {
+        if (!key){
+            var id = Math.floor(Math.random()*1000001);
+        }else{
+                id = key;
+        }
         getSelectedRadio();
         var item            = {};
             item.chore      = ["Chore", ge("chore").value];
