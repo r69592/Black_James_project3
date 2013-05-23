@@ -196,6 +196,7 @@ window.addEventListener("DOMContentLoaded", function() {
             return false;
         }else{
             saveData(this.key);
+            window.location.reload();
         }
     }
 
