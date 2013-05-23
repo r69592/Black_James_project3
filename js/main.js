@@ -53,7 +53,16 @@ window.addEventListener("DOMContentLoaded", function() {
         selectLi.appendChild(makeSelect);
     }
    
-
+     // Get radio answer function.         
+    function getSelectedRadio() {
+        var radios = document.forms[0].difficulty;
+        for(var i=0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                difficultyValue = radios[i].value;
+            }
+        }
+    }
+       
     // Show storage.
     function showData(){
         toggleControls("on");
@@ -79,7 +88,7 @@ window.addEventListener("DOMContentLoaded", function() {
                 makeSubli.innerHTML = optSubText;
                 makeSublist.appendChild(linksLi);
             }
-            makeItemLinks(localStorage.key(i), linksLi); // edit or delete buttons/links.
+            makeItemLinks(localStorage.key(i), linksLi); 
         }
     }
     
@@ -191,17 +200,6 @@ window.addEventListener("DOMContentLoaded", function() {
     }
 
 
-    // Get radio answer function.         
-    function getSelectedRadio() {
-        var radios = document.forms[0].difficulty;
-        for(var i=0; i < radios.length; i++) {
-            if (radios[i].checked) {
-                difficultyValue = radios[i].value;
-            }
-        }
-    }
-        
-    
     // Save data
     function saveData (key) {
         if (!key){
