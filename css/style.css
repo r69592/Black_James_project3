@@ -50,12 +50,9 @@ legend {
     font-family: Garamond, sans-serif, times;
     color: #52f3ff;
 }
-}
+
 fieldset {
     border: 2px dashed white;
-}
-#descript {
-    color: #9afeff;
 }
 #select {
     color: #9afeff;
@@ -154,6 +151,3 @@ fieldset {
         color-stop(0.49, #56A6EC),
         color-stop(0.9, #9AFDFF)
     );
-
-.addNew
-.even{background: #fff; }
